@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     @font-face {
+      font-family: 'dseg14classic-bold';
+      src: url('./font/DSEG14Classic-Bold.woff2') format('woff2');
+    }
+    @font-face {
       font-family: 'dseg14classic-regular';
       src: url('./font/DSEG14Classic-Regular.woff2') format('woff2');
     }
@@ -14,7 +18,7 @@
     }
     /* 全体を囲うコンテナー */
     body{
-      font-family: 'dseg14classic-regular';
+      font-family: 'dseg14classic-bold';
       font-size: 96px;
       height: 100%;
       width: 100%;
@@ -22,9 +26,16 @@
     .container {
       background-color: rgba(0, 0, 50, 0);
     }
+    :root{
+      --color-main: #aaf;
+      --color-flash: #f72;
+      --color-bg: #333;
+      --shadow-main: 0px 0px 20px #0aafe6;
+      --shadow-flash: 0px 0px 20px #e6770a;
+    }
     .upper{
-      color: #aaf;
-      text-shadow: 0px 0px 20px #0aafe6;
+      color: var(--color-main);
+      text-shadow: var(--shadow-main);
       font-weight: 900;
       position: absolute;
       line-height: 1;
@@ -37,14 +48,14 @@
       font-weight: bold;
     }
     .base{
-      color: #333;
+      color: var(--color-bg);
       position: absolute;
       top: 10px;
       left: 0px;
     }
     flashed{
-      color: #f72;
-      text-shadow: 0px 0px 20px #e6770a;
+      color: var(--color-flash);
+      text-shadow: var(--shadow-flash);
     }
 
   </style>
@@ -84,8 +95,8 @@
       let time = `${hour}:${min}:${sec}`;
   
       //// debug
-      //hour="23";
-      //min="56";
+      hour="23";
+      min="56";
       // 23:56:xxとxx:23:56に色を変える謎演出
       if ((hour=="23") && (min=="56")){
         hour = "<flashed>"+hour+"</flashed>";
