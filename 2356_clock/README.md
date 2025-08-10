@@ -45,7 +45,7 @@ body { background-color: rgba(0, 0, 0, 0.9); margin: 0px auto; overflow: hidden;
     --shadow-flash: 0px 0px 20px #ff7777;
 }
 ```
-<img width="832" height="967" alt="image" src="https://github.com/user-attachments/assets/6ffc67a5-43c6-4dba-a886-e3a0157749de" />
+<img width="832" height="958" alt="image" src="https://github.com/user-attachments/assets/920cf1b7-ae42-4330-abe7-b35e6da3c203" />
 
 ## その他
 個人利用・商用問わず自由にお使いください。概要欄などにURLを記載してもらえると喜びます。
