@@ -38,10 +38,10 @@ body{
 ```css
 body { background-color: rgba(0, 0, 0, 0.9); margin: 0px auto; overflow: hidden; }
 :root{
-    --color-main: #aaf;
+    --color-main: #afa;
     --color-flash: #f00;
     --color-bg: #333;
-    --shadow-main: 0px 0px 20px #0aafe6;
+    --shadow-main: 0px 0px 20px #0ae6af;
     --shadow-flash: 0px 0px 20px #ff7777;
 }
 ```
