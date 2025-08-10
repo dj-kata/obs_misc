@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* 参考: https://web-dev.tech/front-end/javascript/digital-clock/ */
+    /* 全体を囲うコンテナー */
+    .container {
+      background-color: rgba(0, 0, 50, 0);
+    }
+    /* 時計の共通スタイル */
+    .clock {
+      font-family: 'DSEG14 Classic'; /*等幅フォントをここで指定*/
+      color: #333333;
+      line-height: 1.2;
+      font-size: 100px;
+      font-weight: 900;
+    }
+    /*重ねるやつ*/
+    .clock div{ 
+      color: #aaaaff;
+      text-shadow: 0 0 20px #0aafe6;
+      position: absolute;
+      top: -92px;
+      left: 9px;
+      font-size: 100px;
+    }
+
+    /* 日付のスタイル */
+    .clock-date {
+      font-size: 25px;
+    }
+    /* 時間のスタイル */
+    .clock-time {
+      font-size: 100px;
+    }
+    .all {
+      font-size: 100px;
+    }
+
+  </style>
+
+  <script>
+    const clock = () => {
+      // 現在の日時・時刻の情報を取得
+      const d = new Date();
+    
+      // 年を取得
+      let year = d.getFullYear();
+      // 月を取得
+      let month = d.getMonth() + 1;
+      // 日を取得
+      let date = d.getDate();
+      // 曜日を取得
+      let dayNum = d.getDay();
+      const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      let day = weekday[dayNum];
+      // 時を取得
+      let hour = d.getHours();
+      // 分を取得
+      let min = d.getMinutes();
+      // 秒を取得
+      let sec = d.getSeconds();
+    
+      // 1桁の場合は0を足して2桁に
+      month = month < 10 ? "0" + month : month;
+      date = date < 10 ? "0" + date : date;
+      hour = hour < 10 ? "0" + hour : hour;
+      min = min < 10 ? "0" + min : min;
+      sec = sec < 10 ? "0" + sec : sec;
+    
+      // 日付・時刻の文字列を作成
+      let today = `${year}.${month}.${date} ${day}`;
+      let time = `${hour}:${min}:${sec}`;
+  
+      //// debug
+      //hour="23";
+      //min="56";
+      // 23:56:xxとxx:23:56に色を変える謎演出
+      if ((hour=="23") && (min=="56")){
+        hour = "<font color='#ff7722'>"+hour+"</font>";
+        min = "<font color='#ff7722'>"+min+"</font>";
+      }
+      if ((min=="23") && (sec=="56")){
+        min = "<font color='#ff7722'>"+min+"</font>";
+        sec = "<font color='#ff7722'>"+sec+"</font>";
+      }
+      if ((min=="12") && (sec=="29")){ // 誕生日
+        min = "<font color='#22ff77'>"+min+"</font>";
+        sec = "<font color='#22ff77'>"+sec+"</font>";
+      }
+      // 文字列を出力
+      let all = `${year}/${month}/${date}　${hour}:${min}:${sec}`;
+      all = all.replace(/0/g, 'o')
+      document.querySelector(".all").innerHTML = all;
+    };
+    
+    // 1秒ごとにclock関数を呼び出す
+    setInterval(clock, 1000);
+
+  </script>
+
+  <title>Digital Clock</title>
+  <!-- CSSファイル読み込み -->
+</head>
+<body>
+  <div class="container">
+    <div class="clock">
+      <div class="upper">
+        <p class="all">0000/00/00　00:00:00</p>
+      </div>
+      8888/88/88　88:88:88
+    </div>
+  </div>
+</body>
+</html>
