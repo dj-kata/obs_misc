@@ -5,45 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     @font-face {
-      font-family: 'dseg14-regular';
+      font-family: 'dseg14classic-regular';
+      src: url('./font/DSEG14Classic-Regular.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'dseg14modern-regular';
       src: url('./font/DSEG14Modern-Regular.woff2') format('woff2');
     }
     /* 全体を囲うコンテナー */
+    body{
+      font-size: 96px;
+      height: 100%;
+      width: 100%;
+    }
     .container {
       background-color: rgba(0, 0, 50, 0);
     }
-    /* 時計の共通スタイル */
-    .clock {
-      font-family: 'dseg14-regular'; /*等幅フォントをここで指定*/
-      color: #333333;
-      line-height: 1.2;
-      font-size: 100px;
+    .upper{
+      color: #aaf;
+      text-shadow: 0px 0px 20px #0aafe6;
       font-weight: 900;
-    }
-    /*重ねるやつ*/
-    .clock div{ 
-      color: #aaaaff;
-      text-shadow: 0 0 20px #0aafe6;
       position: absolute;
-      top: -92px;
-      left: 9px;
-      font-size: 100px;
-    }
+      line-height: 1;
+      top: 15px;
+      left: 0px;
 
-    /* 日付のスタイル */
-    .clock-date {
-      font-size: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
     }
-    /* 時間のスタイル */
-    .clock-time {
-      font-size: 100px;
+    .base{
+      color: #333;
+      position: absolute;
+      top: 10px;
+      left: 0px;
     }
-    .all {
-      font-size: 100px;
+    flashed{
+      color: #f72;
+      text-shadow: 0px 0px 20px #e6770a;
     }
 
   </style>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     const clock = () => {
       // 現在の日時・時刻の情報を取得
@@ -82,21 +87,17 @@
       //min="56";
       // 23:56:xxとxx:23:56に色を変える謎演出
       if ((hour=="23") && (min=="56")){
-        hour = "<font color='#ff7722'>"+hour+"</font>";
-        min = "<font color='#ff7722'>"+min+"</font>";
+        hour = "<flashed>"+hour+"</flashed>";
+        min = "<flashed>"+min+"</flashed>";
       }
       if ((min=="23") && (sec=="56")){
-        min = "<font color='#ff7722'>"+min+"</font>";
-        sec = "<font color='#ff7722'>"+sec+"</font>";
+        min = "<flashed>"+min+"</flashed>";
+        sec = "<flashed>"+sec+"</flashed>";
       }
-      //if ((min=="12") && (sec=="29")){ // 誕生日
-      //  min = "<font color='#22ff77'>"+min+"</font>";
-      //  sec = "<font color='#22ff77'>"+sec+"</font>";
-      //}
       // 文字列を出力
       let all = `${year}/${month}/${date}　${hour}:${min}:${sec}`;
       all = all.replace(/0/g, 'o')
-      document.querySelector(".all").innerHTML = all;
+      $("val").html(all);
     };
     
     // 1秒ごとにclock関数を呼び出す
@@ -110,10 +111,12 @@
 <body>
   <div class="container">
     <div class="clock">
-      <div class="upper">
-        <p class="all">0000/00/00　00:00:00</p>
+      <div class="base">
+        oooo/oo/oo　oo:oo:oo
       </div>
-      8888/88/88　88:88:88
+      <div class="upper">
+        <val>oooo/oo/oo　oo:oo:oo</val>
+      </div>
     </div>
   </div>
 </body>
