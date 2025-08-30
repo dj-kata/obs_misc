@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveClock Horizontal (with Flash)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'dseg14classic-bold';
+            src: url('./font/DSEG14Classic-Bold.woff2') format('woff2');
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root{
+            --enable-flash: 0;                            /* 1:指定時刻に光る機能を有効にする */
+            --flash-hh: 23;                               /* 光る機能の指定時刻(XX)) */
+            --flash-mm: 56;                               /* 光る機能の指定時刻(YY)) */
+            --color-live: #ff0040;                      /* Liveの部分の色 */
+            --color-frame: #0ff;                        /* フレームの色 */
+            --color-time: #0ff;                         /* 時刻の色 */
+            --color-date: #0f8;                         /* 日付の色 */
+            --color-flash: #fa0;                        /* 光る演出の色 */
+            --color-scanning-line: #0ff;                /* 走査線の色 */
+            --color-shadow1: rgba(0, 255, 255, 0.3);    /* 枠につける影の色1 */
+            --color-shadow2: rgba(0, 255, 255, 0.6);    /* 枠につける影の色2 */
+            --enable-scanning-line: 1;                    /* 1:走査線を有効にする */
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            font-weight: 400;
+            font-style: normal;
+            font-optical-sizing: auto;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .clock-container {
+            background: transparent;
+            border: 2px solid var(--color-frame);
+            border-radius: 15px;
+            padding: 20px 30px;
+            box-shadow: 0 0 30px var(--color-shadow1);
+            position: relative;
+            animation: pulse-border 3s ease-in-out infinite;
+            width: 480px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        @keyframes pulse-border {
+            0%, 100% {
+                box-shadow: 0 0 30px var(--color-shadow1);
+            }
+            50% {
+                box-shadow: 0 0 30px var(--color-shadow2);
+            }
+        }
+        
+        .left-section {
+            display: flex;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+        
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            flex: 1;
+            margin-left: 20px;
+        }
+        
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--color-live);
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 15px var(--color-live);
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .live-text {
+            color: var(--color-live);
+            font-size: 20px;
+            font-weight: 900;
+            text-shadow: 0 0 15px var(--color-live);
+            letter-spacing: 2px;
+        }
+        
+        .time-display {
+            color: var(--color-time);
+            font-size: 36px;
+            font-weight: 700;
+            text-align: right;
+            text-shadow: 
+                0 0 15px var(--color-time),
+                0 0 30px var(--color-time),
+                0 0 45px var(--color-time);
+            letter-spacing: 3px;
+            font-variant-numeric: tabular-nums;
+            font-family: 'dseg14classic-bold', monospace;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        
+        .flash {
+            color: var(--color-flash) !important;
+            text-shadow: 
+                0 0 15px var(--color-flash),
+                0 0 30px var(--color-flash),
+                0 0 45px var(--color-flash) !important;
+            animation: flash-glow 0.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes flash-glow {
+            0% { 
+                text-shadow: 
+                    0 0 15px var(--color-flash),
+                    0 0 30px var(--color-flash),
+                    0 0 45px var(--color-flash);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 25px var(--color-flash),
+                    0 0 50px var(--color-flash),
+                    0 0 75px var(--color-flash);
+            }
+        }
+        
+        .date-display {
+            color: var(--color-date);
+            font-size: 14px;
+            text-align: right;
+            font-weight: 400;
+            text-shadow: 0 0 10px var(--color-date);
+            letter-spacing: 1px;
+            font-family: 'Orbitron', monospace;
+            line-height: 1;
+        }
+        
+        .corner-decoration {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--color-frame);
+        }
+        
+        .corner-decoration.top-left {
+            top: 8px;
+            left: 8px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .corner-decoration.top-right {
+            top: 8px;
+            right: 8px;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .corner-decoration.bottom-left {
+            bottom: 8px;
+            left: 8px;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .corner-decoration.bottom-right {
+            bottom: 8px;
+            right: 8px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .scanning-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-scanning-line), transparent);
+            animation: scan 4s linear infinite;
+            z-index: 10;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        
+        /* 区切り線 */
+        .divider {
+            position: absolute;
+            left: 160px;
+            top: 25%;
+            bottom: 25%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--color-frame), transparent);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+        
+        <div class="scanning-line"></div>
+        <!-- <div class="divider"></div> -->
+        
+        <div class="left-section">
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <div class="live-text">LIVE</div>
+            </div>
+        </div>
+        
+        <div class="right-section">
+            <div class="time-display" id="time">00:00:00</div>
+            <div class="date-display" id="date">2024.01.01</div>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            
+            // CSS変数を数値として取得してから2桁文字列に変換
+            const enableFlash = getComputedStyle(document.documentElement).getPropertyValue('--enable-flash').trim();
+            const flashHHRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-hh').trim();
+            const flashMMRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-mm').trim();
+            const enableScanLine = getComputedStyle(document.documentElement).getPropertyValue('--enable-scanning-line').trim();
+            if (enableScanLine==='1'){
+                document.querySelector('.scanning-line').style.display = 'block';
+            }else{
+                document.querySelector('.scanning-line').style.display = 'none';
+            }
+            
+            // 数値として解釈してから2桁文字列に変換
+            const flashHH = String(parseInt(flashHHRaw, 10)).padStart(2, '0');
+            const flashMM = String(parseInt(flashMMRaw, 10)).padStart(2, '0');
+            
+            console.log('Enable Flash:', enableFlash);
+            console.log('Flash HH Raw:', flashHHRaw, '-> Formatted:', flashHH);
+            console.log('Flash MM Raw:', flashMMRaw, '-> Formatted:', flashMM);
+            
+            // 時分秒を取得
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            console.log('Current Time:', hours + ':' + minutes + ':' + seconds);
+            console.log('Comparing:', hours, '===', flashHH, '&&', minutes, '===', flashMM);
+            
+            // 日付を取得
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+
+            let timeHTML = '';
+            
+            // フラッシュ機能が有効で、指定時刻と一致する場合
+            if (enableFlash === '1' && hours === flashHH && minutes === flashMM) {
+                timeHTML = `<span class="flash">${hours}</span>:<span class="flash">${minutes}</span>:${seconds}`;
+            } else {
+                timeHTML = `${hours}:${minutes}:${seconds}`;
+            }
+            
+            // 表示を更新
+            document.getElementById('time').innerHTML = timeHTML;
+            document.getElementById('date').textContent = `${year}.${month}.${day}`;
+        }
+        
+        // 初回実行
+        updateTime();
+        
+        // 1秒ごとに更新
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
