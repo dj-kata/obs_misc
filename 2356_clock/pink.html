@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:wght@200..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -147,10 +148,12 @@
             letter-spacing: 2px;
             font-variant-numeric: tabular-nums;
             font-feature-settings: "tnum";
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-family: 'Bagel Fat One', monospace;
             line-height: 1;
-            font-weight: 900;
+            font-weight: 400;
+            font-style: normal;
             margin-bottom: 5px;
+            padding-left: 70px;
             width: 280px;
             display: inline-block;
         }
@@ -321,7 +324,17 @@
         </div>
         
         <div class="right-section">
-            <div class="time-display" id="time">00:00:00</div>
+            <div class="time-display" id="time">
+                <table>
+                    <tr>
+                        <td id="hour">00</td>
+                        <td>:</td>
+                        <td id="minute">00</td>
+                        <td>:</td>
+                        <td id="second">00</td>
+                    </tr>
+                </table>
+            </div>
             <div class="date-display" id="date">2024.01.01</div>
         </div>
     </div>
@@ -356,18 +369,27 @@
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
 
-            let timeHTML = '';
+            let hourHTML = hours;
+            let minuteHTML = minutes;
+            let secondHTML = seconds;
             
             // フラッシュ機能が有効で、指定時刻と一致する場合
             if (enableFlash === '1' && hours === flashHH && minutes === flashMM) {
-                console.log('💖 PINK FLASH ACTIVATED! 💖');
-                timeHTML = `<span class="flash">${hours}</span>:<span class="flash">${minutes}</span>:${seconds}`;
+                hourHTML = `<span class="flash">${hours}</span>`
+                minuteHTML = `<span class="flash">${minutes}</span>`
+            }else if(enableFlash === '1' && minutes === flashHH && seconds === flashMM){
+                minuteHTML = `<span class="flash">${minutes}</span>`
+                secondHTML = `<span class="flash">${seconds}</span>`
+
             } else {
                 timeHTML = `${hours}:${minutes}:${seconds}`;
             }
             
             // 表示を更新
-            document.getElementById('time').innerHTML = timeHTML;
+            // document.getElementById('time').innerHTML = timeHTML;
+            document.getElementById('hour').innerHTML = hourHTML;
+            document.getElementById('minute').innerHTML = minuteHTML;
+            document.getElementById('second').innerHTML = secondHTML;
             document.getElementById('date').textContent = `${year}.${month}.${day}`;
         }
         
