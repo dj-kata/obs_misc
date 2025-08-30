@@ -29,6 +29,7 @@
             --color-scanning-line: #0ff;                /* 走査線の色 */
             --color-shadow1: rgba(0, 255, 255, 0.3);    /* 枠につける影の色1 */
             --color-shadow2: rgba(0, 255, 255, 0.6);    /* 枠につける影の色2 */
+            --enable-scanning-line: 1;                    /* 1:走査線を有効にする */
         }
         
         body {
@@ -226,6 +227,12 @@
             const enableFlash = getComputedStyle(document.documentElement).getPropertyValue('--enable-flash').trim();
             const flashHHRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-hh').trim();
             const flashMMRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-mm').trim();
+            const enableScanLine = getComputedStyle(document.documentElement).getPropertyValue('--enable-scanning-line').trim();
+            if (enableScanLine==='1'){
+                document.querySelector('.scanning-line').style.display = 'block';
+            }else{
+                document.querySelector('.scanning-line').style.display = 'none';
+            }
             
             // 数値として解釈してから2桁文字列に変換
             const flashHH = String(parseInt(flashHHRaw, 10)).padStart(2, '0');
