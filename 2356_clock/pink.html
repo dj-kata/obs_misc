@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pop LiveClock (with Flash)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:wght@200..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root{
+            --enable-flash: 0;
+            --flash-hh: 23;
+            --flash-mm: 56;
+            --color-live: #ff1493;
+            --color-frame: linear-gradient(45deg, #ff69b4, #ff1493, #dda0dd, #ffd1dc, #40e0d0);
+            --color-time: #ff69b4;
+            --color-date: #40e0d0;
+            --color-flash: #ffd700;
+        }
+        
+        body {
+            font-family: 'Fredoka', cursive;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .clock-container {
+            background: linear-gradient(135deg, 
+                rgba(255, 182, 193, 0.9), 
+                rgba(255, 105, 180, 0.85), 
+                rgba(221, 160, 221, 0.8));
+            border: 3px solid;
+            border-image: linear-gradient(45deg, #ff69b4, #ff1493, #dda0dd, #ffd1dc, #40e0d0) 1;
+            border-radius: 25px;
+            padding: 25px 35px;
+            box-shadow: 
+                0 10px 30px rgba(255, 105, 180, 0.4),
+                0 5px 15px rgba(255, 20, 147, 0.2);
+            position: relative;
+            /* animation: soft-pink-pulse 4s ease-in-out infinite; */
+            width: 480px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        @keyframes soft-pink-pulse {
+            0%, 100% {
+                box-shadow: 
+                    0 10px 30px rgba(255, 105, 180, 0.4),
+                    0 5px 15px rgba(255, 20, 147, 0.2);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 
+                    0 15px 40px rgba(255, 105, 180, 0.5),
+                    0 8px 20px rgba(255, 20, 147, 0.3);
+                transform: scale(1.02);
+            }
+        }
+        
+        .left-section {
+            display: flex;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+        
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            flex: 1;
+            margin-left: 20px;
+        }
+        
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #ffffff, rgba(255, 255, 255, 0.7));
+            border: 2px solid #ff1493;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 
+                0 0 10px rgba(255, 20, 147, 0.6),
+                inset 0 1px 2px rgba(255, 255, 255, 0.3);
+            animation: cute-bounce 1.8s ease-in-out infinite;
+        }
+        
+        @keyframes cute-bounce {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1) translateY(0);
+            }
+            25% {
+                transform: scale(1.15) translateY(-1px);
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: scale(0.95) translateY(1px);
+            }
+        }
+        
+        .live-text {
+            color: #ffffff;
+            font-size: 27px;
+            font-weight: 600;
+            text-shadow: 
+                0 2px 4px rgba(255, 20, 147, 0.8),
+                0 0 10px rgba(255, 105, 180, 0.6),
+                0 1px 2px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            animation: text-bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes text-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+        
+        .time-display {
+            color: #ffffdd;
+            font-size: 50px;
+            font-weight: 600;
+            text-align: right;
+            text-shadow: 
+                0 2px 4px rgba(255, 20, 147, 0.6),
+                0 0 15px rgba(255, 105, 180, 0.8),
+                0 1px 2px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            line-height: 1;
+            font-weight: 900;
+            margin-bottom: 5px;
+            width: 280px;
+            display: inline-block;
+        }
+        
+        .flash {
+            color: var(--color-flash) !important;
+            text-shadow: 
+                0 2px 4px rgba(255, 215, 0, 0.4),
+                0 0 25px rgba(255, 215, 0, 0.8),
+                0 0 45px rgba(255, 215, 0, 0.6) !important;
+            animation: gold-flash 0.6s ease-in-out infinite alternate;
+        }
+        
+        @keyframes gold-flash {
+            0% { 
+                transform: scale(1);
+                text-shadow: 
+                    0 2px 4px rgba(255, 215, 0, 0.4),
+                    0 0 25px rgba(255, 215, 0, 0.8),
+                    0 0 45px rgba(255, 215, 0, 0.6);
+            }
+            100% { 
+                transform: scale(1.05);
+                text-shadow: 
+                    0 3px 6px rgba(255, 215, 0, 0.6),
+                    0 0 35px rgba(255, 215, 0, 1),
+                    0 0 65px rgba(255, 215, 0, 0.8);
+            }
+        }
+        
+        .date-display {
+            color: #ffffff;
+            font-size: 20px;
+            text-align: right;
+            font-weight: 500;
+            text-shadow: 
+                0 1px 2px rgba(64, 224, 208, 0.6),
+                0 0 8px rgba(64, 224, 208, 0.4),
+                0 1px 1px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+            font-family: 'Nunito', sans-serif;
+            line-height: 1;
+            opacity: 0.9;
+        }
+        
+        .corner-decoration {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ff6b6b;
+            border-radius: 4px;
+        }
+        
+        .corner-decoration.top-left {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+            border-color: #ff69b4;
+        }
+        
+        .corner-decoration.top-right {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+            border-color: #ff1493;
+        }
+        
+        .corner-decoration.bottom-left {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+            border-color: #dda0dd;
+        }
+        
+        .corner-decoration.bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+            border-color: #40e0d0;
+        }
+        
+        @keyframes gentle-scan {
+            0% { 
+                top: 0; 
+                opacity: 0.8; 
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(1.2);
+                opacity: 1;
+            }
+            100% { 
+                top: 100%; 
+                opacity: 0; 
+                transform: scaleY(1);
+            }
+        }
+        
+        /* カラフルな区切り線 */
+        .divider {
+            position: absolute;
+            left: 160px;
+            top: 30%;
+            bottom: 30%;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                #ff69b4, 
+                #ff1493, 
+                #dda0dd, 
+                #40e0d0,
+                transparent);
+            border-radius: 1px;
+            opacity: 0.7;
+        }
+        
+        /* キラキラエフェクト */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffffff, rgba(255, 255, 255, 0.5));
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        }
+        
+        .sparkle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 70%; right: 25%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 40%; left: 70%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { bottom: 25%; left: 40%; animation-delay: 1.5s; }
+        
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0; 
+                transform: scale(0) rotate(0deg);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1) rotate(180deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+        
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        
+        <div class="divider"></div>
+        
+        <div class="left-section">
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <div class="live-text">LIVE</div>
+            </div>
+        </div>
+        
+        <div class="right-section">
+            <div class="time-display" id="time">00:00:00</div>
+            <div class="date-display" id="date">2024.01.01</div>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            
+            // CSS変数を数値として取得してから2桁文字列に変換
+            const enableFlash = getComputedStyle(document.documentElement).getPropertyValue('--enable-flash').trim();
+            const flashHHRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-hh').trim();
+            const flashMMRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-mm').trim();
+            
+            // 数値として解釈してから2桁文字列に変換
+            const flashHH = String(parseInt(flashHHRaw, 10)).padStart(2, '0');
+            const flashMM = String(parseInt(flashMMRaw, 10)).padStart(2, '0');
+            
+            console.log('Enable Flash:', enableFlash);
+            console.log('Flash HH Raw:', flashHHRaw, '-> Formatted:', flashHH);
+            console.log('Flash MM Raw:', flashMMRaw, '-> Formatted:', flashMM);
+            
+            // 時分秒を取得
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            console.log('Current Time:', hours + ':' + minutes + ':' + seconds);
+            console.log('Comparing:', hours, '===', flashHH, '&&', minutes, '===', flashMM);
+            
+            // 日付を取得
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+
+            let timeHTML = '';
+            
+            // フラッシュ機能が有効で、指定時刻と一致する場合
+            if (enableFlash === '1' && hours === flashHH && minutes === flashMM) {
+                console.log('💖 PINK FLASH ACTIVATED! 💖');
+                timeHTML = `<span class="flash">${hours}</span>:<span class="flash">${minutes}</span>:${seconds}`;
+            } else {
+                timeHTML = `${hours}:${minutes}:${seconds}`;
+            }
+            
+            // 表示を更新
+            document.getElementById('time').innerHTML = timeHTML;
+            document.getElementById('date').textContent = `${year}.${month}.${day}`;
+        }
+        
+        // 初回実行
+        updateTime();
+        
+        // 1秒ごとに更新
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
