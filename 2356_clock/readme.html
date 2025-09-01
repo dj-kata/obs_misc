@@ -107,8 +107,6 @@
             text-decoration: underline;
         }
 
-
-
         .clock-table iframe:not(.clock-preview-scaled) {
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -125,7 +123,7 @@
         /* 数字のみ時計用の縮小表示 */
         .clock-preview-container {
             width: 300px;
-            height: 32px;
+            height: 80px;
             overflow: hidden;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -169,7 +167,6 @@
         }
 
         code {
-            background: #f4f4f4;
             padding: 2px 6px;
             border-radius: 4px;
             font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
@@ -186,11 +183,21 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        pre code {
-            background: none;
-            padding: 0;
-            color: #f7fafc;
-        }
+        /* CSSシンタックスハイライト - より具体的なセレクタで上書き */
+        pre code .css-comment { color: #6a737d !important; font-style: italic; }
+        pre code .css-selector { color: #79b8ff !important; font-weight: bold; }
+        pre code .css-property { color: #f97583 !important; }
+        pre code .css-value { color: #9ecbff !important; }
+        pre code .css-color { color: #85e89d !important; font-weight: bold; }
+        pre code .css-number { color: #79b8ff !important; }
+        pre code .css-unit { color: #b392f0 !important; }
+        pre code .css-function { color: #b392f0 !important; }
+        pre code .css-string { color: #9ecbff !important; }
+        pre code .css-brace { color: #e1e4e8 !important; font-weight: bold; }
+        pre code .css-colon { color: #e1e4e8 !important; }
+        pre code .css-semicolon { color: #e1e4e8 !important; }
+        pre code .css-paren { color: #e1e4e8 !important; }
+        pre code .css-comma { color: #e1e4e8 !important; }
 
         .footer {
             text-align: left;
@@ -290,7 +297,7 @@
                     <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/cyber_banner_clock.html" target="_blank">バナー型</a></td>
                     <td>
                         <iframe src="https://dj-kata.github.io/obs_misc/2356_clock/cyber_banner_clock.html" 
-                                width="380" height="210" 
+                                width="300" height="165" 
                                 title="バナー型時計プレビュー"></iframe>
                     </td>
                     <td>380x220</td>
@@ -299,7 +306,7 @@
                     <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/cyber_slim.html" target="_blank">横長型（少しスリムなレイアウト）</a></td>
                     <td>
                         <iframe src="https://dj-kata.github.io/obs_misc/2356_clock/cyber_slim.html" 
-                                width="380" height="120" 
+                                width="300" height="95" 
                                 title="横長型時計プレビュー"></iframe>
                     </td>
                     <td>380x120</td>
@@ -308,7 +315,7 @@
                     <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/pink.html" target="_blank">横長、ピンク基調</a></td>
                     <td>
                         <iframe src="https://dj-kata.github.io/obs_misc/2356_clock/pink.html" 
-                                width="480" height="120" 
+                                width="300" height="75" 
                                 title="ピンク基調時計プレビュー"></iframe>
                     </td>
                     <td>480x120</td>
@@ -334,38 +341,40 @@
         <p>ブラウザソースのカスタムCSSでデザインを変更することができます。<br>
         利用できるカスタムプロパティは以下。</p>
 
-        <pre><code>/* OBSがデフォルトで挿入する部分 */
-body{
-    background-color: rgba(0, 0, 0, 0.0); /* 4つ目(不透明度)を1.0に近づけると背景色が濃くなります */
-    margin: 0px auto;
-    overflow: hidden;
-}
+        <pre><code><span class="css-comment">/* OBSがデフォルトで挿入する部分 */</span>
+<span class="css-selector">body</span><span class="css-brace">{</span>
+    <span class="css-property">background-color</span><span class="css-colon">:</span> <span class="css-function">rgba</span><span class="css-paren">(</span><span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0.0</span><span class="css-paren">)</span><span class="css-semicolon">;</span> <span class="css-comment">/* 4つ目(不透明度)を1.0に近づけると背景色が濃くなります */</span>
+    <span class="css-property">margin</span><span class="css-colon">:</span> <span class="css-number">0</span><span class="css-unit">px</span> <span class="css-value">auto</span><span class="css-semicolon">;</span>
+    <span class="css-property">overflow</span><span class="css-colon">:</span> <span class="css-value">hidden</span><span class="css-semicolon">;</span>
+<span class="css-brace">}</span>
 
-/* 本アプリの設定 */
-:root{
-    --enable-flash: 0;                            /* 1:指定時刻に光る機能を有効にする */
-    --flash-hh: 23;                               /* 光る機能の指定時刻(XX)) */
-    --flash-mm: 56;                               /* 光る機能の指定時刻(YY)) */
-    --color-live: #ff0040;                        /* Liveの部分の色 */
-    --color-frame: #0ff;                          /* フレームの色 */
-    --color-time: #0ff;                           /* 時刻の色 */
-    --color-date: #0f8;                           /* 日付の色 */
-    --color-flash: #fa0;                          /* 光る演出の色 */
-    --color-scanning-line: #0ff;                  /* 走査線の色 */
-    --color-shadow1: rgba(0, 255, 255, 0.3);      /* 枠につける影の色1 */
-    --color-shadow2: rgba(0, 255, 255, 0.6);      /* 枠につける影の色2 */
-    --enable-scanning-line: 1;                    /* 1:走査線を有効にする */
-}</code></pre>
+<span class="css-comment">/* 本アプリの設定 */</span>
+<span class="css-selector">:root</span><span class="css-brace">{</span>
+    <span class="css-property">--enable-flash</span><span class="css-colon">:</span> <span class="css-number">0</span><span class="css-semicolon">;</span>                            <span class="css-comment">/* 1:指定時刻に光る機能を有効にする */</span>
+    <span class="css-property">--flash-hh</span><span class="css-colon">:</span> <span class="css-number">23</span><span class="css-semicolon">;</span>                               <span class="css-comment">/* 光る機能の指定時刻(XX)) */</span>
+    <span class="css-property">--flash-mm</span><span class="css-colon">:</span> <span class="css-number">56</span><span class="css-semicolon">;</span>                               <span class="css-comment">/* 光る機能の指定時刻(YY)) */</span>
+    <span class="css-property">--color-live</span><span class="css-colon">:</span> <span class="css-color">#ff0040</span><span class="css-semicolon">;</span>                        <span class="css-comment">/* Liveの部分の色 */</span>
+    <span class="css-property">--color-frame</span><span class="css-colon">:</span> <span class="css-color">#0ff</span><span class="css-semicolon">;</span>                          <span class="css-comment">/* フレームの色 */</span>
+    <span class="css-property">--color-time</span><span class="css-colon">:</span> <span class="css-color">#0ff</span><span class="css-semicolon">;</span>                           <span class="css-comment">/* 時刻の色 */</span>
+    <span class="css-property">--color-date</span><span class="css-colon">:</span> <span class="css-color">#0f8</span><span class="css-semicolon">;</span>                           <span class="css-comment">/* 日付の色 */</span>
+    <span class="css-property">--color-flash</span><span class="css-colon">:</span> <span class="css-color">#fa0</span><span class="css-semicolon">;</span>                          <span class="css-comment">/* 光る演出の色 */</span>
+    <span class="css-property">--color-scanning-line</span><span class="css-colon">:</span> <span class="css-color">#0ff</span><span class="css-semicolon">;</span>                  <span class="css-comment">/* 走査線の色 */</span>
+    <span class="css-property">--color-shadow1</span><span class="css-colon">:</span> <span class="css-function">rgba</span><span class="css-paren">(</span><span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">255</span><span class="css-comma">,</span> <span class="css-number">255</span><span class="css-comma">,</span> <span class="css-number">0.3</span><span class="css-paren">)</span><span class="css-semicolon">;</span>      <span class="css-comment">/* 枠につける影の色1 */</span>
+    <span class="css-property">--color-shadow2</span><span class="css-colon">:</span> <span class="css-function">rgba</span><span class="css-paren">(</span><span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">255</span><span class="css-comma">,</span> <span class="css-number">255</span><span class="css-comma">,</span> <span class="css-number">0.6</span><span class="css-paren">)</span><span class="css-semicolon">;</span>      <span class="css-comment">/* 枠につける影の色2 */</span>
+    <span class="css-property">--enable-scanning-line</span><span class="css-colon">:</span> <span class="css-number">1</span><span class="css-semicolon">;</span>                    <span class="css-comment">/* 1:走査線を有効にする */</span>
+<span class="css-brace">}</span></code></pre>
 
         <div class="footer">
             <h2>その他</h2>
             <p>個人利用・商用問わず自由にお使いください。概要欄などにURLを記載してもらえると喜びます。</p>
             
-            <p><strong>引用例：</strong><br></p>
-            <div style="background: #f8f9cc; padding: 15px; border-radius: 8px; margin: 0px 0;">
-                    23時56分に光る謎のデジタル時計<br>
-                    <a href="https://dj-kata.github.io/obs_misc/2356clock" target="_blank">https://dj-kata.github.io/obs_misc/2356clock</a>
+            <br>
+            <strong>引用例：</strong><br>
+            <div style="background: #f8f9dd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                23時56分に光る謎のデジタル時計<br>
+                <a href="https://dj-kata.github.io/obs_misc/2356clock" target="_blank">https://dj-kata.github.io/obs_misc/2356clock</a>
             </div>
+
             <br>
             <p><strong>フォントについて：</strong><br>
             数字のフォントについては、DSEG14を利用させてもらっています。<br>
