@@ -6,8 +6,16 @@
 |[横長型(少しスリムなレイアウト)](https://dj-kata.github.io/obs_misc/2356_clock/cyber_slim.html)|<img width="236" height="80" alt="image" src="https://github.com/user-attachments/assets/1b4d9adc-205b-41c3-ab59-262256aec81a" />|380x120|
 |[横長、ピンク基調](https://dj-kata.github.io/obs_misc/2356_clock/pink.html)|<img height="80" alt="image" src="https://github.com/user-attachments/assets/f377d5c4-3038-4a3a-a095-125edde8914f" />|480x120|
 
+# 使用方法
+OBSに設定する場合は以下の通り。
+1. ソースの追加(+マーク)→ブラウザを選択
+2. URLに使いたいデザインの公開URL(上述)を設定してOKをクリック
+3. 余白の調整をする場合、ソースの大きさを上記の推奨値にする
+<img width="730" height="859" alt="image" src="https://github.com/user-attachments/assets/b1f8a4b4-e794-4b62-b7b7-20ceb2c393b8" />
+
 # カスタマイズ
-以下のカスタムプロパティによって見た目を弄ることができます。
+ブラウザソースのカスタムCSSでデザインを変更することができます。  
+利用できるカスタムプロパティは以下。
 ```css
 /* OBSがデフォルトで挿入する部分 */
 body{
