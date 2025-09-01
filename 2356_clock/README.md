@@ -4,7 +4,7 @@
 |[数字のみ](https://dj-kata.github.io/obs_misc/2356_clock/index.html)|<img height="70" alt="image" src="https://github.com/user-attachments/assets/fc996677-5671-410f-8f05-661fd3dfa629" />|1390x130|
 |[バナー型](https://dj-kata.github.io/obs_misc/2356_clock/cyber_banner_clock.html)|<img height="131" alt="image" src="https://github.com/user-attachments/assets/54153964-113a-4cdf-adf3-beda7d14713e" />|380x220|
 |[横長型(少しスリムなレイアウト)](https://dj-kata.github.io/obs_misc/2356_clock/cyber_slim.html)|<img width="236" height="80" alt="image" src="https://github.com/user-attachments/assets/1b4d9adc-205b-41c3-ab59-262256aec81a" />|380x120|
-|[横長、ピンク基調](https://dj-kata.github.io/obs_misc/2356_clock/pink.html)|<img width="238" alt="image" src="https://github.com/user-attachments/assets/a6738f93-eeec-4a40-a321-2256d515e754" />|480x120|
+|[横長、ピンク基調](https://dj-kata.github.io/obs_misc/2356_clock/pink.html)|<img height="80" alt="image" src="https://github.com/user-attachments/assets/f377d5c4-3038-4a3a-a095-125edde8914f" />|480x120|
 
 # カスタマイズ
 以下のカスタムプロパティによって見た目を弄ることができます。
