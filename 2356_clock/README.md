@@ -1,4 +1,12 @@
 # 23時56分に光る謎のデジタル時計(2356_clock)
+## これは何？
+OBS配信などに使えるデジタル時計風HTMLです。ライブ配信っぽさを出しています。  
+<img width="238" height="131" alt="image" src="https://github.com/user-attachments/assets/54153964-113a-4cdf-adf3-beda7d14713e" />
+
+カスタムプロパティを設定することで、以下のように指定時刻に光らせることができます。  
+<img width="236" height="134" alt="image" src="https://github.com/user-attachments/assets/4e751dba-a6c0-486e-a0b5-49347c70aeec" />
+
+## 一覧
 |時計(公開URL)|サンプル|推奨ウィンドウサイズ|
 |-|-|-|
 |[数字のみ](https://dj-kata.github.io/obs_misc/2356_clock/index.html)|<img height="70" alt="image" src="https://github.com/user-attachments/assets/fc996677-5671-410f-8f05-661fd3dfa629" />|1390x130|
@@ -6,14 +14,14 @@
 |[横長型(少しスリムなレイアウト)](https://dj-kata.github.io/obs_misc/2356_clock/cyber_slim.html)|<img width="236" height="80" alt="image" src="https://github.com/user-attachments/assets/1b4d9adc-205b-41c3-ab59-262256aec81a" />|380x120|
 |[横長、ピンク基調](https://dj-kata.github.io/obs_misc/2356_clock/pink.html)|<img height="80" alt="image" src="https://github.com/user-attachments/assets/f377d5c4-3038-4a3a-a095-125edde8914f" />|480x120|
 
-# 使用方法
+## 使用方法
 OBSに設定する場合は以下の通り。
 1. ソースの追加(+マーク)→ブラウザを選択
 2. URLに使いたいデザインの公開URL(上述)を設定してOKをクリック
 3. 余白の調整をする場合、ソースの大きさを上記の推奨値にする
 <img width="730" height="859" alt="image" src="https://github.com/user-attachments/assets/b1f8a4b4-e794-4b62-b7b7-20ceb2c393b8" />
 
-# カスタマイズ
+## カスタマイズ
 ブラウザソースのカスタムCSSでデザインを変更することができます。  
 利用できるカスタムプロパティは以下。
 ```css
