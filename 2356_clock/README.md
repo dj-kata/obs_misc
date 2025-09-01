@@ -39,3 +39,13 @@ body{
     --enable-scanning-line: 1;                    /* 1:走査線を有効にする */
 }
 ```
+
+## その他
+個人利用・商用問わず自由にお使いください。概要欄などにURLを記載してもらえると喜びます。
+```
+23時56分に光る謎のデジタル時計
+https://github.com/dj-kata/obs_misc/tree/main/2356_clock
+```
+
+数字のフォントについては、DSEG14を利用させてもらっています。
+https://www.keshikan.net/fonts.html
