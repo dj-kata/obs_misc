@@ -107,10 +107,49 @@
             text-decoration: underline;
         }
 
-        .sample-image {
-            max-height: 80px;
+
+
+        .clock-table iframe:not(.clock-preview-scaled) {
+            border: 1px solid #ddd;
             border-radius: 5px;
+            background: #000;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .clock-table iframe:not(.clock-preview-scaled):hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 数字のみ時計用の縮小表示 */
+        .clock-preview-container {
+            width: 300px;
+            height: 32px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .clock-preview-scaled {
+            width: 1390px;
+            height: 130px;
+            transform: scale(0.216);
+            transform-origin: top left;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .clock-preview-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .clock-preview-scaled:hover {
+            transform: scale(0.216) !important;
         }
 
         .instructions {
@@ -230,29 +269,48 @@
             <thead>
                 <tr>
                     <th>時計（公開URL）</th>
-                    <th>サンプル</th>
+                    <th>ライブプレビュー</th>
                     <th>推奨ウィンドウサイズ</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/index.html" target="_blank">数字のみ</a></td>
-                    <td><img src="https://github.com/user-attachments/assets/fc996677-5671-410f-8f05-661fd3dfa629" alt="数字のみサンプル" class="sample-image" /></td>
+                    <td>
+                        <div class="clock-preview-container">
+                            <iframe src="https://dj-kata.github.io/obs_misc/2356_clock/index.html" 
+                                    width="1390" height="130" 
+                                    class="clock-preview-scaled"
+                                    title="数字のみ時計プレビュー"></iframe>
+                        </div>
+                    </td>
                     <td>1390x130</td>
                 </tr>
                 <tr>
                     <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/cyber_banner_clock.html" target="_blank">バナー型</a></td>
-                    <td><img src="https://github.com/user-attachments/assets/54153964-113a-4cdf-adf3-beda7d14713e" alt="バナー型サンプル" class="sample-image" /></td>
+                    <td>
+                        <iframe src="https://dj-kata.github.io/obs_misc/2356_clock/cyber_banner_clock.html" 
+                                width="380" height="210" 
+                                title="バナー型時計プレビュー"></iframe>
+                    </td>
                     <td>380x220</td>
                 </tr>
                 <tr>
                     <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/cyber_slim.html" target="_blank">横長型（少しスリムなレイアウト）</a></td>
-                    <td><img src="https://github.com/user-attachments/assets/1b4d9adc-205b-41c3-ab59-262256aec81a" alt="横長型サンプル" class="sample-image" /></td>
+                    <td>
+                        <iframe src="https://dj-kata.github.io/obs_misc/2356_clock/cyber_slim.html" 
+                                width="380" height="120" 
+                                title="横長型時計プレビュー"></iframe>
+                    </td>
                     <td>380x120</td>
                 </tr>
                 <tr>
                     <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/pink.html" target="_blank">横長、ピンク基調</a></td>
-                    <td><img src="https://github.com/user-attachments/assets/f377d5c4-3038-4a3a-a095-125edde8914f" alt="ピンク基調サンプル" class="sample-image" /></td>
+                    <td>
+                        <iframe src="https://dj-kata.github.io/obs_misc/2356_clock/pink.html" 
+                                width="480" height="120" 
+                                title="ピンク基調時計プレビュー"></iframe>
+                    </td>
                     <td>480x120</td>
                 </tr>
             </tbody>
