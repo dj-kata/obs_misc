@@ -28,15 +28,16 @@
       background-color: rgba(0, 0, 50, 0);
     }
     :root{
-      --color-main: #aaf;
-      --color-flash: #f72;
+      --enable-flash:1;
+      --flash-hh: 23;
+      --flash-mm: 56;
+      --color-time: #aaf;
+      --color-flash: #fa0;
       --color-bg: #333;
-      --shadow-main: 0px 0px 20px #0aafe6;
-      --shadow-flash: 0px 0px 20px #e6770a;
     }
     .upper{
-      color: var(--color-main);
-      text-shadow: var(--shadow-main);
+      color: var(--color-time);
+      text-shadow: 0 0 20px var(--color-time);
       font-weight: 900;
       position: absolute;
       line-height: 1;
@@ -56,7 +57,7 @@
     }
     flashed{
       color: var(--color-flash);
-      text-shadow: var(--shadow-flash);
+      text-shadow: 0 0 20px var(--color-flash);
     }
 
   </style>
@@ -66,6 +67,15 @@
     const clock = () => {
       // 現在の日時・時刻の情報を取得
       const d = new Date();
+
+      // CSS変数を数値として取得してから2桁文字列に変換
+      const enableFlash = getComputedStyle(document.documentElement).getPropertyValue('--enable-flash').trim();
+      const flashHHRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-hh').trim();
+      const flashMMRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-mm').trim();
+      
+      // 数値として解釈してから2桁文字列に変換
+      const flashHH = String(parseInt(flashHHRaw, 10)).padStart(2, '0');
+      const flashMM = String(parseInt(flashMMRaw, 10)).padStart(2, '0');
     
       // 年を取得
       let year = d.getFullYear();
@@ -77,19 +87,15 @@
       let dayNum = d.getDay();
       const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       let day = weekday[dayNum];
-      // 時を取得
-      let hour = d.getHours();
-      // 分を取得
-      let min = d.getMinutes();
-      // 秒を取得
-      let sec = d.getSeconds();
+
+      // 時分秒を取得
+      var hour = String(d.getHours()).padStart(2, '0');
+      var min = String(d.getMinutes()).padStart(2, '0');
+      var sec = String(d.getSeconds()).padStart(2, '0');
     
       // 1桁の場合は0を足して2桁に
       month = month < 10 ? "0" + month : month;
       date = date < 10 ? "0" + date : date;
-      hour = hour < 10 ? "0" + hour : hour;
-      min = min < 10 ? "0" + min : min;
-      sec = sec < 10 ? "0" + sec : sec;
     
       // 日付・時刻の文字列を作成
       let today = `${year}.${month}.${date} ${day}`;
@@ -99,11 +105,11 @@
       //hour="23";
       //min="56";
       // 23:56:xxとxx:23:56に色を変える謎演出
-      if ((hour=="23") && (min=="56")){
+      console.log("HH:"+flashHH+", MM:"+flashMM)
+      if (enableFlash === '1' && hour === flashHH && min === flashMM) {
         hour = "<flashed>"+hour+"</flashed>";
         min = "<flashed>"+min+"</flashed>";
-      }
-      if ((min=="23") && (sec=="56")){
+      }else if(enableFlash === '1' && min === flashHH && sec === flashMM){
         min = "<flashed>"+min+"</flashed>";
         sec = "<flashed>"+sec+"</flashed>";
       }
