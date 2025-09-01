@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23時56分に光る謎のデジタル時計 - 2356_clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            color: #34495e;
+            margin: 30px 0 20px 0;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 15px 0;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .clock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .clock-table th, .clock-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .clock-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        .clock-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .clock-table a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .clock-table a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .sample-image {
+            max-height: 80px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .instructions {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #17a2b8;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            color: #e74c3c;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #f7fafc;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-top: 3px solid #667eea;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .feature-image {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .feature-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .clock-table {
+                font-size: 14px;
+            }
+
+            .clock-table th, .clock-table td {
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>23時56分に光る謎のデジタル時計</h1>
+        <div class="highlight-box">
+            <strong>2356_clock</strong> - OBS配信用デジタル時計HTML
+        </div>
+
+        <div class="description">
+            <h2>これは何？</h2>
+            <p>OBS配信などに使えるデジタル時計風HTMLです。ライブ配信っぽさを出しています。</p>
+            
+            <div class="feature-image">
+                <img src="https://github.com/user-attachments/assets/54153964-113a-4cdf-adf3-beda7d14713e" alt="通常時の時計表示" />
+            </div>
+
+            <p>カスタムプロパティを設定することで、以下のように指定時刻に光らせることができます。</p>
+            
+            <div class="feature-image">
+                <img src="https://github.com/user-attachments/assets/4e751dba-a6c0-486e-a0b5-49347c70aeec" alt="光る演出の時計表示" />
+            </div>
+        </div>
+
+        <h2>時計の種類</h2>
+        <table class="clock-table">
+            <thead>
+                <tr>
+                    <th>時計（公開URL）</th>
+                    <th>サンプル</th>
+                    <th>推奨ウィンドウサイズ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/datetimeonly.html" target="_blank">数字のみ</a></td>
+                    <td><img src="https://github.com/user-attachments/assets/fc996677-5671-410f-8f05-661fd3dfa629" alt="数字のみサンプル" class="sample-image" /></td>
+                    <td>1390x130</td>
+                </tr>
+                <tr>
+                    <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/cyber_banner_clock.html" target="_blank">バナー型</a></td>
+                    <td><img src="https://github.com/user-attachments/assets/54153964-113a-4cdf-adf3-beda7d14713e" alt="バナー型サンプル" class="sample-image" /></td>
+                    <td>380x220</td>
+                </tr>
+                <tr>
+                    <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/cyber_slim.html" target="_blank">横長型（少しスリムなレイアウト）</a></td>
+                    <td><img src="https://github.com/user-attachments/assets/1b4d9adc-205b-41c3-ab59-262256aec81a" alt="横長型サンプル" class="sample-image" /></td>
+                    <td>380x120</td>
+                </tr>
+                <tr>
+                    <td><a href="https://dj-kata.github.io/obs_misc/2356_clock/pink.html" target="_blank">横長、ピンク基調</a></td>
+                    <td><img src="https://github.com/user-attachments/assets/f377d5c4-3038-4a3a-a095-125edde8914f" alt="ピンク基調サンプル" class="sample-image" /></td>
+                    <td>480x120</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="instructions">
+            <h2>使用方法</h2>
+            <p>OBSに設定する場合は以下の通り。</p>
+            <ol>
+                <li>ソースの追加（+マーク）→ブラウザを選択</li>
+                <li>URLに使いたいデザインの公開URL（上述）を設定してOKをクリック</li>
+                <li>余白の調整をする場合、ソースの大きさを上記の推奨値にする</li>
+            </ol>
+            
+            <div class="feature-image">
+                <img src="https://github.com/user-attachments/assets/b1f8a4b4-e794-4b62-b7b7-20ceb2c393b8" alt="OBS設定画面" />
+            </div>
+        </div>
+
+        <h2>カスタマイズ</h2>
+        <p>ブラウザソースのカスタムCSSでデザインを変更することができます。<br>
+        利用できるカスタムプロパティは以下。</p>
+
+        <pre><code>/* OBSがデフォルトで挿入する部分 */
+body{
+    background-color: rgba(0, 0, 0, 0.0); /* 4つ目(不透明度)を1.0に近づけると背景色が濃くなります */
+    margin: 0px auto;
+    overflow: hidden;
+}
+
+/* 本アプリの設定 */
+:root{
+    --enable-flash: 0;                            /* 1:指定時刻に光る機能を有効にする */
+    --flash-hh: 23;                               /* 光る機能の指定時刻(XX)) */
+    --flash-mm: 56;                               /* 光る機能の指定時刻(YY)) */
+    --color-live: #ff0040;                        /* Liveの部分の色 */
+    --color-frame: #0ff;                          /* フレームの色 */
+    --color-time: #0ff;                           /* 時刻の色 */
+    --color-date: #0f8;                           /* 日付の色 */
+    --color-flash: #fa0;                          /* 光る演出の色 */
+    --color-scanning-line: #0ff;                  /* 走査線の色 */
+    --color-shadow1: rgba(0, 255, 255, 0.3);      /* 枠につける影の色1 */
+    --color-shadow2: rgba(0, 255, 255, 0.6);      /* 枠につける影の色2 */
+    --enable-scanning-line: 1;                    /* 1:走査線を有効にする */
+}</code></pre>
+
+        <div class="footer">
+            <h2>その他</h2>
+            <p>個人利用・商用問わず自由にお使いください。概要欄などにURLを記載してもらえると喜びます。</p>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <strong>引用例：</strong><br>
+                23時56分に光る謎のデジタル時計<br>
+                <a href="https://github.com/dj-kata/obs_misc/tree/main/2356_clock" target="_blank">https://github.com/dj-kata/obs_misc/tree/main/2356_clock</a>
+            </div>
+
+            <p><strong>フォントについて：</strong><br>
+            数字のフォントについては、DSEG14を利用させてもらっています。<br>
+            <a href="https://www.keshikan.net/fonts.html" target="_blank">https://www.keshikan.net/fonts.html</a></p>
+        </div>
+    </div>
+</body>
+</html>
