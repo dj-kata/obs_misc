@@ -372,7 +372,7 @@
         <p>ブラウザソースのカスタムCSSでデザインを変更することができます。<br>
         利用できるカスタムプロパティは以下。</p>
 
-        <pre><code><span class="css-comment">/* OBSがデフォルトで挿入する部分 */</span>
+<pre><code><span class="css-comment">/* OBSがデフォルトで挿入する部分 */</span>
 <span class="css-selector">body</span><span class="css-brace">{</span>
     <span class="css-property">background-color</span><span class="css-colon">:</span> <span class="css-function">rgba</span><span class="css-paren">(</span><span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0.0</span><span class="css-paren">)</span><span class="css-semicolon">;</span> <span class="css-comment">/* 4つ目(不透明度)を1.0に近づけると背景色が濃くなります */</span>
     <span class="css-property">margin</span><span class="css-colon">:</span> <span class="css-number">0</span><span class="css-unit">px</span> <span class="css-value">auto</span><span class="css-semicolon">;</span>
@@ -393,6 +393,10 @@
     <span class="css-property">--color-shadow1</span><span class="css-colon">:</span> <span class="css-function">rgba</span><span class="css-paren">(</span><span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">255</span><span class="css-comma">,</span> <span class="css-number">255</span><span class="css-comma">,</span> <span class="css-number">0.3</span><span class="css-paren">)</span><span class="css-semicolon">;</span>      <span class="css-comment">/* 枠につける影の色1 */</span>
     <span class="css-property">--color-shadow2</span><span class="css-colon">:</span> <span class="css-function">rgba</span><span class="css-paren">(</span><span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">255</span><span class="css-comma">,</span> <span class="css-number">255</span><span class="css-comma">,</span> <span class="css-number">0.6</span><span class="css-paren">)</span><span class="css-semicolon">;</span>      <span class="css-comment">/* 枠につける影の色2 */</span>
     <span class="css-property">--enable-scanning-line</span><span class="css-colon">:</span> <span class="css-number">1</span><span class="css-semicolon">;</span>                    <span class="css-comment">/* 1:走査線を有効にする */</span>
+<span class="css-brace">}</span>
+<span class="css-comment">/* パネル内のみ色を変更する場合は下記を設定 */</span>
+<span class="css-selector">.clock-container</span><span class="css-brace">{</span>
+    <span class="css-property">background-color</span><span class="css-colon">:</span> <span class="css-function">rgba</span><span class="css-paren">(</span><span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0</span><span class="css-comma">,</span> <span class="css-number">0.95</span><span class="css-paren">)</span><span class="css-semicolon">;</span> <span class="css-comment">/* 4つ目(不透明度)を1.0に近づけると背景色が濃くなります */</span>
 <span class="css-brace">}</span></code></pre>
 
         <div class="footer">
