@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @font-face {
+      font-family: 'dseg14classic-bold';
+      src: url('./font/DSEG14Classic-Bold.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'dseg14classic-regular';
+      src: url('./font/DSEG14Classic-Regular.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'dseg14modern-regular';
+      src: url('./font/DSEG14Modern-Regular.woff2') format('woff2');
+    }
+    /* 全体を囲うコンテナー */
+    body{
+      background-color: black;
+      font-family: 'dseg14classic-bold';
+      font-size: 96px;
+      height: 100%;
+      width: 100%;
+    }
+    .container {
+      background-color: rgba(0, 0, 50, 0);
+    }
+    :root{
+      --enable-flash:1;
+      --flash-hh: 23;
+      --flash-mm: 56;
+      --color-time: #aaf;
+      --color-flash: #fa0;
+      --color-bg: #333;
+    }
+    .upper{
+      color: var(--color-time);
+      text-shadow: 0 0 20px var(--color-time);
+      font-weight: 900;
+      position: absolute;
+      line-height: 1;
+      top: 15px;
+      left: 0px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .base{
+      color: var(--color-bg);
+      position: absolute;
+      top: 10px;
+      left: 0px;
+    }
+    flashed{
+      color: var(--color-flash);
+      text-shadow: 0 0 20px var(--color-flash);
+    }
+
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    const clock = () => {
+      // 現在の日時・時刻の情報を取得
+      const d = new Date();
+
+      // CSS変数を数値として取得してから2桁文字列に変換
+      const enableFlash = getComputedStyle(document.documentElement).getPropertyValue('--enable-flash').trim();
+      const flashHHRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-hh').trim();
+      const flashMMRaw = getComputedStyle(document.documentElement).getPropertyValue('--flash-mm').trim();
+      
+      // 数値として解釈してから2桁文字列に変換
+      const flashHH = String(parseInt(flashHHRaw, 10)).padStart(2, '0');
+      const flashMM = String(parseInt(flashMMRaw, 10)).padStart(2, '0');
+    
+      // 年を取得
+      let year = d.getFullYear();
+      // 月を取得
+      let month = d.getMonth() + 1;
+      // 日を取得
+      let date = d.getDate();
+      // 曜日を取得
+      let dayNum = d.getDay();
+      const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      let day = weekday[dayNum];
+
+      // 時分秒を取得
+      var hour = String(d.getHours()).padStart(2, '0');
+      var min = String(d.getMinutes()).padStart(2, '0');
+      var sec = String(d.getSeconds()).padStart(2, '0');
+    
+      // 1桁の場合は0を足して2桁に
+      month = month < 10 ? "0" + month : month;
+      date = date < 10 ? "0" + date : date;
+    
+      // 日付・時刻の文字列を作成
+      let today = `${year}.${month}.${date} ${day}`;
+      let time = `${hour}:${min}:${sec}`;
+  
+      //// debug
+      //hour="23";
+      //min="56";
+      // 23:56:xxとxx:23:56に色を変える謎演出
+      console.log("HH:"+flashHH+", MM:"+flashMM)
+      if (enableFlash === '1' && hour === flashHH && min === flashMM) {
+        hour = "<flashed>"+hour+"</flashed>";
+        min = "<flashed>"+min+"</flashed>";
+      }else if(enableFlash === '1' && min === flashHH && sec === flashMM){
+        min = "<flashed>"+min+"</flashed>";
+        sec = "<flashed>"+sec+"</flashed>";
+      }
+      // 文字列を出力
+      let all = `${hour}:${min}:${sec}`;
+      all = all.replace(/0/g, 'o')
+      $("val").html(all);
+    };
+    
+    // 1秒ごとにclock関数を呼び出す
+    setInterval(clock, 1000);
+
+  </script>
+
+  <title>Digital Clock</title>
+  <!-- CSSファイル読み込み -->
+</head>
+<body>
+  <div class="container">
+    <div class="clock">
+      <div class="base">
+        oo:oo:oo
+      </div>
+      <div class="upper">
+        <val>oo:oo:oo</val>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
